@@ -12,17 +12,20 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 
 public class RobotTemplate extends SimpleRobot {
     RobotDrive drive;
     Joystick left, right;
+    LiveWindow lw = new LiveWindow();
 
     public RobotTemplate(){
         getWatchdog().setEnabled(false);
-        drive=new RobotDrive(1,2);
+        drive=new RobotDrive(1, 2);
         left = new Joystick(1);
-        right = new Joystick(2);
+        left.setAxisChannel(Joystick.AxisType.kY, 1);
+        left.setAxisChannel(Joystick.AxisType.kX, 2);
     }
     public void autonomous() {
 
@@ -37,7 +40,7 @@ public class RobotTemplate extends SimpleRobot {
 
     public void operatorControl() {
         while(true && isOperatorControl() && isEnabled()){
-            drive.tankDrive(left, right);
+            drive.arcadeDrive(left);
             Timer.delay(.005);
         }
     }

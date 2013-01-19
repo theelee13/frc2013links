@@ -1,2 +1,5 @@
 *.class
 .DS_Store
+/4468 Command Robot/build/
+/build/
+/4468 Command Robot/nbproject/private/
