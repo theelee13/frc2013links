@@ -9,6 +9,7 @@ package edu.wpi.first.wpilibj.templates;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -22,7 +23,7 @@ import edu.wpi.first.wpilibj.templates.commands.ExampleCommand;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotTemplate extends IterativeRobot {
+public class RobotMain extends IterativeRobot {
 
     Command autonomousCommand;
 
@@ -36,6 +37,8 @@ public class RobotTemplate extends IterativeRobot {
 
         // Initialize all subsystems
         CommandBase.init();
+        
+        
     }
 
     public void autonomousInit() {
@@ -56,6 +59,9 @@ public class RobotTemplate extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
+        
+        OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kX, RobotMap.rightDrive);
+        OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kY, RobotMap.leftDrive);
     }
 
     /**
@@ -63,6 +69,14 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        double forwardValue = OI.leftDrivejoystick.getY();
+        double rightValue = OI.leftDrivejoystick.getX();
+        
+        double leftDriveSpeed = Math.max(-1, Math.min(1, forwardValue + rightValue));
+        double rightDriveSpeed = Math.max(-1, Math.min(1, forwardValue - rightValue));
+        
+        CommandBase.driveSubsystem.setSpeeds(rightDriveSpeed, leftDriveSpeed);
     }
     
     /**
