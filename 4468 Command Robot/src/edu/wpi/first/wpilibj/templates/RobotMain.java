@@ -71,8 +71,8 @@ public class RobotMain extends IterativeRobot {
         double forwardValue = OI.leftDrivejoystick.getY();
         double rightValue = OI.leftDrivejoystick.getX();
         
-        double leftDriveSpeed = Math.max(-1, Math.min(1, forwardValue + rightValue));
-        double rightDriveSpeed = Math.max(-1, Math.min(1, forwardValue - rightValue));
+        double leftDriveSpeed = Math.max(-1, Math.min(1, forwardValue - rightValue));
+        double rightDriveSpeed = Math.max(-1, Math.min(1, forwardValue + rightValue));
         
         CommandBase.driveSubsystem.setSpeeds(rightDriveSpeed, leftDriveSpeed);
      

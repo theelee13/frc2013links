@@ -62,7 +62,7 @@ public class ShooterSubsystem extends Subsystem {
     }
 	
 	/**
-	 * Moves the specified motor the specified number of degress.
+	 * Moves the specified motor the specified number of degrees.
 	*/
 	private void moveMotor(SpeedController motor, int degreesToMove){
 		// TODO: If we have a measurement sensor, change this method's signature to take in a 

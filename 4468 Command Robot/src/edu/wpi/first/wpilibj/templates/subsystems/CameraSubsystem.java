@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.image.NIVisionException;
 
 
 public class CameraSubsystem extends Subsystem {
-    private ColorImage currentImage = null; 
+    private ColorImage currentImage; 
     private AxisCamera camera = AxisCamera.getInstance();
     
 
@@ -62,7 +62,7 @@ public class CameraSubsystem extends Subsystem {
     }
         
     public ColorImage getImage(){ 
-        return currentImage; 
+        return currentImage;
     }
 
 
