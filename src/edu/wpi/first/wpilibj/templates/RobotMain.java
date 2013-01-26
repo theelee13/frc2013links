@@ -7,14 +7,13 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.templates.commands.AutonomousCommand;
 import edu.wpi.first.wpilibj.templates.commands.CommandBase;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,10 +32,12 @@ public class RobotMain extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommand();
+        autonomousCommand = new 
 
         // Initialize all subsystems
         CommandBase.init();
+        
+        
     }
 
     public void autonomousInit() {
@@ -58,8 +59,8 @@ public class RobotMain extends IterativeRobot {
         // this line or comment it out.
         autonomousCommand.cancel();
         
-        OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kX, RobotMap.rightDriveChannel);
-        OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kY, RobotMap.leftDriveChannel);
+        OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kX, RobotMap.rightDrive);
+        OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kY, RobotMap.leftDrive);
     }
 
     /**
@@ -75,7 +76,7 @@ public class RobotMain extends IterativeRobot {
         double rightDriveSpeed = Math.max(-1, Math.min(1, forwardValue - rightValue));
         
         CommandBase.driveSubsystem.setSpeeds(rightDriveSpeed, leftDriveSpeed);
-     
+        
  
         
     }
