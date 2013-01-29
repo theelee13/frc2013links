@@ -1,8 +1,10 @@
-
 package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.templates.subsystems.*;
 public class Shoot extends CommandBase {
     private boolean fired = false; 
+    
+    //NOTE: We should get sensors for the shooter to detect is a Frisbee has been shot or not. This can prevent 
+    //the Frisbees from jamming.
 	
     public Shoot() {
         // Use requires() here to declare subsystem dependencies
@@ -12,14 +14,14 @@ public class Shoot extends CommandBase {
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
+    protected void initialize(int frontRPM, int backRPM) {
+    	CommandBase.ShooterSubsystem.setShooterSpeed(frontRPM, backRPM);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute(int frontRPM, int backRPM, double degrees) {
-	    CommandBase.ShooterSubsystem.setShooterSpeed(frontRPM, backRPM); //Starts both motors up
+    protected void execute(double degrees) {
         CommandBase.LoaderSubsystem.loadFrisbee(degrees); //loads the Frisbee
-		fired = true; //Note: should we add a sensor to make sure the Frisbees do not get jammed? 
+        fired = true; //Note: should we add a sensor to make sure the Frisbees do not get jammed? 
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,7 +32,7 @@ public class Shoot extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
 	    CommandBase.LoaderSubsystem.reset(degrees); //resets the arms back into the original position
-		CommandBase.ShooterSubsystem.setShooterSpeed(0, 0); //stops the motors
+	    CommandBase.ShooterSubsystem.setShooterSpeed(0, 0); //stops the motors
     }
 
     // Called when another command which requires one or more of the same
