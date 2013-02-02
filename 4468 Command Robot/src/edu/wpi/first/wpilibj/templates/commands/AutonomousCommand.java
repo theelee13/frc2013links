@@ -50,6 +50,10 @@ public class AutonomousCommand extends CommandBase {
 		
 		//TODO: Code to control how much the motor needs to move based on pixelX and pixelY
 		//so that the shooter is centered to 320,240 on a 640 x 480
+		//We first assume that the tilt and pan motors move according to the ratio
+		//1 pixel per degree (PPG).
+		
+		
     }
 	
 	protected int[] getCenterMass(ColorImage image){
