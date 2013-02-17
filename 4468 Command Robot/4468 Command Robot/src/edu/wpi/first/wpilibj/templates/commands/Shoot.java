@@ -1,7 +1,5 @@
 package edu.wpi.first.wpilibj.templates.commands;
-import edu.wpi.first.wpilibj.templates.subsystems.*;/
-
-
+import edu.wpi.first.wpilibj.templates.subsystems.*;
 public class Shoot extends CommandBase {
     private boolean fired = false; 
     
@@ -17,12 +15,12 @@ public class Shoot extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize(int frontRPM, int backRPM) {
-    	CommandBase.ShooterSubsystem.setShooterSpeed(frontRPM, backRPM);
+    	CommandBase.shooterSubsystem.setShooterSpeed(frontRPM, backRPM);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute(double degrees) {
-        CommandBase.LoaderSubsystem.loadFrisbee(degrees); //loads the Frisbee
+        CommandBase.loaderSubsystem.loadFrisbee(degrees); //loads the Frisbee
         fired = true; //Note: should we add a sensor to make sure the Frisbees do not get jammed? 
     }
 
@@ -33,12 +31,19 @@ public class Shoot extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-	    CommandBase.LoaderSubsystem.reset(degrees); //resets the arms back into the original position
-	    CommandBase.ShooterSubsystem.setShooterSpeed(0, 0); //stops the motors
+            int degrees = 0;
+	    CommandBase.loaderSubsystem.reset(degrees); //resets the arms back into the original position
+	    CommandBase.shooterSubsystem.setShooterSpeed(0, 0); //stops the motors
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    }
+
+    protected void initialize() {
+    }
+
+    protected void execute() {
     }
 }
