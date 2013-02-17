@@ -27,6 +27,7 @@ public class OptimizeTrajectory extends CommandBase {
     protected void execute() {
         boolean onTargetX = false, onTargetY = false;
         
+        cameraSubsystem.takeImage(); 
         ColorImage img = cameraSubsystem.getImage();
         // center[0] = x, center[1] = y
         int[] center = this.getCenterMass(img);

@@ -98,7 +98,8 @@ public class RobotMain extends IterativeRobot {
         }
         
         // Buttons
-        if (OI.fireButton.get()){
+        if (OI.fireButton.get()){ 
+            //when you fire the button, these commands should be executed
             CommandGroup group = new CommandGroup();
             group.addSequential(new OptimizeTrajectory());
             group.addSequential(new Shoot());

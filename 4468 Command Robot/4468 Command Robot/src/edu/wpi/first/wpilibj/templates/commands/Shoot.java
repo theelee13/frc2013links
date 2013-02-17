@@ -1,5 +1,6 @@
 package edu.wpi.first.wpilibj.templates.commands;
 import edu.wpi.first.wpilibj.templates.subsystems.*;
+
 public class Shoot extends CommandBase {
     private boolean fired = false; 
     
