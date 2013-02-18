@@ -9,6 +9,7 @@ package edu.wpi.first.wpilibj.templates;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer; 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -35,17 +36,28 @@ public class RobotMain extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousCommand();
-
-        // Initialize all subsystems
+        
+        
+//        if(OI.leftStart.get()){
+//            autonomousCommand = new AutonomousCommand(-1);
+//        }
+//        else if(OI.middleStart.get()){
+//            autonomousCommand = new AutonomousCommand(0);
+//        }
+//        else if(OI.rightStart.get()){
+//            autonomousCommand = new AutonomousCommand(1); 
+//        }
+//       
+        
+        
+        //Initialize all subsystems
         CommandBase.init();
-        
-        
     }
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
         autonomousCommand.start();
+        
     }
 
     /**
@@ -53,6 +65,7 @@ public class RobotMain extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+
     }
 
     public void teleopInit() {
@@ -64,6 +77,14 @@ public class RobotMain extends IterativeRobot {
         
         OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kX, RobotMap.rightDriveChannel);
         OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kY, RobotMap.leftDriveChannel);
+        OI.shooterJoystick.setAxisChannel(Joystick.AxisType.kX, RobotMap.rotateShooterMotorChannel);
+        OI.shooterJoystick.setAxisChannel(Joystick.AxisType.kY, RobotMap.tiltShooterMotorChannel); 
+        
+        // Buttons
+//        CommandGroup group = new CommandGroup();
+//        group.addSequential(new OptimizeTrajectory());
+//        group.addSequential(new Shoot(0.5));
+//        OI.fireButton.whenPressed(group);
     }
 
     /**
@@ -71,7 +92,6 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        
         // Driving
         double forwardValue = OI.leftDrivejoystick.getY();
         double rightValue = OI.leftDrivejoystick.getX();
@@ -82,8 +102,8 @@ public class RobotMain extends IterativeRobot {
         CommandBase.driveSubsystem.setSpeeds(rightDriveSpeed, leftDriveSpeed);
         
         // Tilt/Pan
-        double tiltValue = OI.leftDrivejoystick.getY();
-        double rotateValue = OI.leftDrivejoystick.getX();
+        double tiltValue = OI.shooterJoystick.getY();
+        double rotateValue = OI.shooterJoystick.getX();
         
         if (Math.abs(tiltValue) > 0.2) {
             CommandBase.shooterSubsystem.startTilt(tiltValue);
@@ -95,18 +115,15 @@ public class RobotMain extends IterativeRobot {
             CommandBase.shooterSubsystem.startPan(rotateValue);
         } else {
             CommandBase.shooterSubsystem.stopPan();
-        }
+        } 
         
-        // Buttons
-        if (OI.fireButton.get()){ 
-            //when you fire the button, these commands should be executed
-            CommandGroup group = new CommandGroup();
-            group.addSequential(new OptimizeTrajectory());
-            group.addSequential(new Shoot());
-            
-            group.start();
+        //temporary control of shooter. Manual start motors, launch.
+        if(OI.tempFire.get()){
+            CommandGroup group = new CommandGroup(); 
+            group.addSequential(new Shoot(1)); 
+            group.start(); 
         }
-        
+       
     }
     
     /**

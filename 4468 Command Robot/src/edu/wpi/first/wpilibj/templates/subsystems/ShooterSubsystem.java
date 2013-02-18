@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.templates.RobotMap;
 
 
 public class ShooterSubsystem extends Subsystem {
-    public static final int MAXRPM = 5000; // TODO: set this to the actual max motor RPM
 	
    /*
     * The angle should tell you how far away the shooter is tilted/panned from a reference line
@@ -24,9 +23,9 @@ public class ShooterSubsystem extends Subsystem {
     private double currentPanAngle = 0.0; 
 
     private Jaguar frontMotor = new Jaguar(RobotMap.frontShooterMotorChannel);
-    private Jaguar backMotor = new Jaguar(RobotMap.backShooterMotorChannel);
     private Relay tiltMotor = new Relay(RobotMap.tiltShooterMotorChannel);
     private Relay rotateMotor = new Relay(RobotMap.rotateShooterMotorChannel);
+    private Relay LEDRelay = new Relay(RobotMap.LEDRelay); 
     private Encoder panEncoder = new Encoder(RobotMap.panEncoderChannelA, RobotMap.panEncoderChannelB);
     private Encoder tiltEncoder = new Encoder(RobotMap.tiltEncoderChannelA, RobotMap.tiltEncoderChannelB);
     
@@ -36,33 +35,6 @@ public class ShooterSubsystem extends Subsystem {
         tiltEncoder.start();
     }
     
-    
-    /** NOT NEEDED
-    private double currentDistance;
-    private double tiltTicksPerSecond = 3000;
-
-    public void tilt(int degrees){ 
-        //bound the number of degrees so that the shooter does not exceed min and max tilt angles
-        double requestedPosition = Math.max(minTiltAngle, Math.min(maxTiltAngle, currentTiltAngle + degrees));
-        double actualDegrees = requestedPosition - currentTiltAngle;
-	
-        double liftArmLength = 0;
-        double screwLength = 0;
-        double rampLength = 0;
-        
-        double startingTicks = tiltEncoder.get();
-        tiltMotor.set(Relay.Value.kOn);
-        
-        double revs = 
-        
-        double num = Math.pow(-(liftArmLength), 2) + Math.pow(screwLength - currentDistance, 2) + Math.pow(rampLength, 2);
-        double den = 2 * (screwLength - currentDistance) * rampLength;
-        
-        double currentDegreesTilt = Math.acos(num / den);
-        
-        
-    } 
-    */
     
     /** 
      * negative degrees will move in one direction and positive degrees will move in another direction
@@ -94,25 +66,13 @@ public class ShooterSubsystem extends Subsystem {
      * build team will probably want to think in terms of RPM. Conversion to PWM value is taken
      * care of by this method.
     */
-    public void setShooterSpeed(int frontRpm, int backRpm){
-        if (frontRpm > 1 || frontRpm < 0 || backRpm > 1 || backRpm < 0)
-                throw new IllegalArgumentException("RPM values must be in range [0,1]");
+    public void setShooterSpeed(double pwnSpeed){
+        if (pwnSpeed > 1.0 || pwnSpeed < -1.0)
+                throw new IllegalArgumentException("PwnSpeed must be in range [0,1]");
 
-        double frontSpeed = getSpeedFromRpm(frontRpm);
-        double backSpeed = getSpeedFromRpm(backRpm);
-
-        frontMotor.set(frontSpeed);
-        backMotor.set(backSpeed);
+        frontMotor.set(pwnSpeed);
     }
 	
-    private double getSpeedFromRpm(int rpm){
-        // TODO: currently is just a linear function. This will probably change
-        // based on the actual motor values, but we will have to wait and see
-        if (MAXRPM < rpm)
-            return 1;
-        else
-            return rpm/MAXRPM;
-    }
     
     public void startTilt(double direction){
         if (direction > 0) {

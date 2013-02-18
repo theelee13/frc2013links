@@ -12,7 +12,12 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
     public static final Joystick leftDrivejoystick = new Joystick(RobotMap.driveStickPort);
     public static final Joystick shooterJoystick = new Joystick(RobotMap.shooterStickPort);
-    public static final Button fireButton = new JoystickButton(leftDrivejoystick, RobotMap.triggerButtonNumber);
+//    public static final Button fireButton = new JoystickButton(shooterJoystick, RobotMap.triggerButtonNumber);
+    public static final Button tempFire = new JoystickButton(leftDrivejoystick,RobotMap.triggerButtonNumber);
+    public static final Button leftStart = new JoystickButton(shooterJoystick, RobotMap.leftStartButtonNumber);
+    public static final Button middleStart = new JoystickButton(shooterJoystick, RobotMap.middleStartButonNumber);
+    public static final Button rightStart = new JoystickButton(shooterJoystick, RobotMap.rightStartButtonNumber); 
+    
     
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
