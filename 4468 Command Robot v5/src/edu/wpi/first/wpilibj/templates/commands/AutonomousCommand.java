@@ -13,13 +13,11 @@ import edu.wpi.first.wpilibj.image.NIVision;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 
 public class AutonomousCommand extends CommandBase {
-    private int startingLocation = -2; 
-    private boolean finishedAutonomous; 
+    private boolean finishedFiring = false; 
+    private boolean finishedAutonomous = false; 
     private double secondsSinceStart = 0.0; 
     
-    public AutonomousCommand(int loc, int n) {
-        //-1 is left, 0 is  middle, 1 is right, -2 is a int representation of null
-        startingLocation = loc; 
+    public AutonomousCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(CommandBase.cameraSubsystem);
@@ -31,39 +29,21 @@ public class AutonomousCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        System.out.println("Initializaing Autonomous Command"); 
-        
-        if(startingLocation == -1){
-            
-        }
-        else if(startingLocation == 0 ){
-            
-        }
-        else if(startingLocation == 1){
-            
-        }
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {     
-        if(startingLocation == -1){ //if the robot starts on the left
-            moveToDesignatedSpot(10); 
-        }
-        else if(startingLocation == 0){ //if the robot starts on the middle
+        if(!(finishedAutonomous)){ 
+            moveToDesignatedSpot(2.54); 
+            
+            
             
         }
-        else if(startingLocation == 1){ //if the robot starts on the right             
-            driveSubsystem.setSpeeds(1,1);
-            moveToDesignatedSpot(10); 
+        if(finishedAutonomous){
+            //rotate
+            moveToDesignatedSpot(5.30); 
         }
-    
-        if(startingLocation == -2){//just a layer of protection so that it doesn't randomly shoot when startingLocation is -2/ "null"
-            CommandGroup group = new CommandGroup(); 
-            group.addSequential(new OptimizeTrajectory());
-            group.addSequential(new Shoot(1, 4));
-            group.start();  
-        }
-        
+
         //move back to the feeder station
         //delay the robot for several seconds so that players can load the frisbee
         //repeats execute(), but the distanceNeededToMove changes
@@ -73,7 +53,7 @@ public class AutonomousCommand extends CommandBase {
         
     }
     
-    private void moveToDesignatedSpot(int distanceNeededToMove){
+    private void moveToDesignatedSpot(double distanceNeededToMove){
         while(true){
             double currentAcceleration = accelerometerSubsytem.getAcceleration()*9.80665;
             double distanceTraveled = (1/2)*currentAcceleration* (secondsSinceStart*secondsSinceStart);

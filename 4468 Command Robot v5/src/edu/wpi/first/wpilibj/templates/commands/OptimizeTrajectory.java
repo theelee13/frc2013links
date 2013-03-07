@@ -93,15 +93,7 @@ public class OptimizeTrajectory extends CommandBase {
     
     
      protected int[] getCenterMass(ColorImage image){
-        counter++;
-        /*
-        int[] temp = {10,10};
-        if (counter % 10 != 0){
-            System.out.println("Returning fake center");
-            return temp;
-        }
-        */
-        
+        counter++; 
 	try{
             CriteriaCollection cc = new CriteriaCollection();
             cc.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA,10,60,false);
@@ -122,8 +114,8 @@ public class OptimizeTrajectory extends CommandBase {
             conImage.free();
             filter.free();
             if (counter % 10 != 0){
-            System.out.println("Returning real center");
-            return rv;
+                System.out.println("Returning real center");
+                return rv;
             }
         } catch (Exception e){  }
         

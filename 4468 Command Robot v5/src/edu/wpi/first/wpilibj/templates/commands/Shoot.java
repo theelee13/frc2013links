@@ -39,7 +39,7 @@ public class Shoot extends CommandBase {
         else{
             finishedFiring = false; 
         }
-        Timer.delay(2.0); 
+        Timer.delay(1.0); 
         
     }
 

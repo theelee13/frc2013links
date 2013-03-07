@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.templates.RobotMap;
 public class LoaderSubsystem extends Subsystem {
 
     //declare motors necessary 
-    private PWM loaderMotor = new PWM(RobotMap.loaderMotorChannel); 
+    private Relay loaderMotor = new Relay(RobotMap.loaderMotorChannel); 
     
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -19,12 +19,14 @@ public class LoaderSubsystem extends Subsystem {
     }
     
     public void loadFrisbee(){ //moves the motor for x amount of time depending on the value of degrees 
-        loaderMotor.setRaw(255);  
+        loaderMotor.setDirection(Relay.Direction.kForward); 
+        Timer.delay(2); 
+        loaderMotor.set(Relay.Value.kOn); 
     }
 	
     public void reset(){ //resets the arm back into position
-        loaderMotor.setRaw(1);
+        loaderMotor.setDirection(Relay.Direction.kReverse);
         Timer.delay(2); 
-        loaderMotor.setRaw(0); 
+        loaderMotor.set(Relay.Value.kOff); 
     }
 }

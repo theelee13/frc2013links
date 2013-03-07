@@ -67,10 +67,10 @@ public class ShooterSubsystem extends Subsystem {
      * care of by this method.
     */
     public void setShooterSpeed(double pwnSpeed){
-        if (pwnSpeed > 1.0 || pwnSpeed < -1.0)
+        if (pwnSpeed > 1.0 || pwnSpeed < 0.0)
                 throw new IllegalArgumentException("PwnSpeed must be in range [0,1]");
 
-        frontMotor.set(pwnSpeed);
+        frontMotor.set(-1*pwnSpeed); 
     }
 	
     

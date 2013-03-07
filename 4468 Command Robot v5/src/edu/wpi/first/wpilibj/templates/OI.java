@@ -10,13 +10,25 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    //Drive joystick
     public static final Joystick leftDrivejoystick = new Joystick(RobotMap.driveStickPort);
+    public static final Button loadButton = new JoystickButton(leftDrivejoystick, RobotMap.loadButtonNumber);
+    public static final Button emergencyBreakDriveButton = new JoystickButton(leftDrivejoystick, RobotMap.emergencyBreakButtonNumber); 
+    public static final Button emergencyEndAutonmousTrackingCodeButton = new JoystickButton(leftDrivejoystick, RobotMap.emergencyEndAutonomousButtonNumber);
+    public static final Button getCurrentStatsButton = new JoystickButton(leftDrivejoystick, RobotMap.getCurrentStatsButtonNumber); 
+    public static final Button emergencyStopFiringButton = new JoystickButton(leftDrivejoystick, RobotMap.emergencyStopFiringButton);
+    
+    //Shooter joystick
     public static final Joystick shooterJoystick = new Joystick(RobotMap.shooterStickPort);
-//    public static final Button fireButton = new JoystickButton(shooterJoystick, RobotMap.triggerButtonNumber);
-    public static final Button tempFire = new JoystickButton(leftDrivejoystick,RobotMap.triggerButtonNumber);
-    public static final Button leftStart = new JoystickButton(shooterJoystick, RobotMap.leftStartButtonNumber);
-    public static final Button middleStart = new JoystickButton(shooterJoystick, RobotMap.middleStartButonNumber);
-    public static final Button rightStart = new JoystickButton(shooterJoystick, RobotMap.rightStartButtonNumber); 
+    public static final Button startShooterMotorButton = new JoystickButton(shooterJoystick,RobotMap.startShooterMotorButtonNumber);
+    public static final Button increaseShooterSpeedButton = new JoystickButton(shooterJoystick, RobotMap.increaseShooterSpeedButtonNumber);
+    public static final Button decreaseShooterSpeedButton = new JoystickButton(shooterJoystick, RobotMap.decreaseShooterSpeedButtonNumber);
+    public static final Button emergencyShooterStopButton = new JoystickButton(shooterJoystick, RobotMap.emergencyShooterStopButtonNumber);  
+    public static final Button emergencyTiltStopButton = new JoystickButton(shooterJoystick, RobotMap.emergencyStopTiltButton);
+    public static final Button emergencyPanStopButton = new JoystickButton(shooterJoystick, RobotMap.emergencyStopPanButton);
+    public static final Button startOptimizationButton = new JoystickButton(shooterJoystick, RobotMap.startOptimizationButtonNumber); 
+    public static final Button stopOptimizationButton = new JoystickButton(shooterJoystick, RobotMap.stopOpTButton);
+    
     
     
     //// CREATING BUTTONS
