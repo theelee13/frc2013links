@@ -28,6 +28,9 @@ public class OptimizeTrajectory extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         boolean onTargetX = false, onTargetY = false;
+        int width = 640;
+        int height = 320;
+        
         cameraSubsystem.takeImage();
         ColorImage img = cameraSubsystem.getImage();
         // center[0] = x, center[1] = y
@@ -40,9 +43,6 @@ public class OptimizeTrajectory extends CommandBase {
             shooterSubsystem.stopTilt();
             return;
         }
-        
-        int width = 640;
-        int height = 320;
         
         try {
             if(img != null){

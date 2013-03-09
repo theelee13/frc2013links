@@ -19,7 +19,6 @@ public class AccelerometerSubsystem extends Subsystem {
     }
     
     public double getAcceleration(){
-        double accGravity = accelerometer.getAcceleration(); 
-        return accGravity; 
+        return accelerometer.getAcceleration();
     }
 }

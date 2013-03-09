@@ -36,6 +36,7 @@ public class RobotMain extends IterativeRobot {
     public boolean isPanningAllowed = true;
     public boolean isTiltingAllowed = true; 
     public boolean isAllowedToFire = true; 
+    public AutonomousCommand autonomousCommand; 
     
 
     /**
@@ -43,18 +44,16 @@ public class RobotMain extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
-        // instantiate the command used for the autonomous period
-        
-        //makee sure to angle the robots perfectly
-        
         //Initialize all subsystems
         CommandBase.init();
+        
+        // instantiate the command used for the autonomous period
+        autonomousCommand = new AutonomousCommand(0,0); 
     }
 
     public void autonomousInit() {
-        // schedule the autonomous command (example)
-//        autonomousCommand.start();
-        
+        // schedule the autonomous command
+        autonomousCommand.start();
     }
 
     /**
@@ -62,16 +61,11 @@ public class RobotMain extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-
     }
 
     public void teleopInit() {
-	// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-//        autonomousCommand.cancel();
-//        
+        autonomousCommand.cancel();
+      
         OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kX, RobotMap.rightDriveChannel);
         OI.leftDrivejoystick.setAxisChannel(Joystick.AxisType.kY, RobotMap.leftDriveChannel);
     }
@@ -116,8 +110,8 @@ public class RobotMain extends IterativeRobot {
         double forwardValue = OI.leftDrivejoystick.getY();
         double rightValue = OI.leftDrivejoystick.getX(); 
         
-        double leftDriveSpeed = -1* Math.max(-1, Math.min(1, forwardValue + rightValue));
-        double rightDriveSpeed = -1 * Math.max(-1, Math.min(1, forwardValue - rightValue));
+        double leftDriveSpeed = Math.max(-1, Math.min(1, forwardValue + rightValue));
+        double rightDriveSpeed = -Math.max(-1, Math.min(1, forwardValue - rightValue));
         
         if(isDriveAllowed){
             CommandBase.driveSubsystem.setSpeeds(rightDriveSpeed, leftDriveSpeed);
